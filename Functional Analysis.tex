@@ -1,0 +1,168 @@
+\documentclass{report}
+% Comment the following line to NOT allow the usage of umlauts
+\usepackage[utf8]{inputenc}
+% Uncomment the following line to allow the usage of graphics (.png, .jpg)
+%\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{left=3cm,right=3cm,top=3cm,bottom=3cm}
+\usepackage[all]{xy}
+\usepackage{tikz}
+\usepackage{amsmath,amsfonts,amssymb,ntheorem}
+\usepackage{bigints}
+\usepackage{enumitem}
+\usepackage{extarrows}
+
+\theorembodyfont{\upshape}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\theoremstyle{nonumberplain}
+\theoremheaderfont{\itshape}
+\theorembodyfont{\normalfont}
+\theoremsymbol{\\ \rightline{$\square$}}
+\newtheorem{proof}{Proof.}
+% Start the document
+\begin{document}
+\begin{center}
+	\textsc{\Huge Functional Analysis}
+	~\\
+	\vspace{1em}  
+	
+\end{center}
+\vspace{1em} 
+\tableofcontents
+% Create a new 1st level heading
+\chapter{Metric Spaces and Normed Spaces}
+\section{Metric Spaces}
+\subsection{Basic notions}
+\begin{definition}[metric space]
+	Given a nonempty set $X$ and a mapping $d:X\times X\to \mathbb{R}$, we say $(X,d)$ is a \emph{metric space} if $d$ satisfies the following conditions for all $x,y\in X$:
+	\begin{enumerate}
+		\item identity of indiscernibles: $d(x,y)=0\iff x=y$,
+		\item symmetry: $d(x,y)=d(y,x)$,
+		\item triangle inequality: $d(x,y)\le d(x,z)+d(y,z)$.
+	\end{enumerate}	
+\end{definition}
+
+\noindent The definition of the metric space also implies
+\[
+	d(x,y)\ge 0,\quad\forall x,y\in X
+\]
+and 
+\[
+	d(x,y)\le|d(x,z)-d(y,z)|,\quad x,y,z\in X.
+\]
+Metric space can induce a topology on the set $X$ by defining the neighberhood of a point $x$ as 
+\[
+	B_\epsilon(x)=\left\{y\in X\mid d(x,y)<\epsilon \right\}.
+\]
+Furthermore, the following proposition holds.
+
+\begin{proposition}[Hausdorffness]
+	Metric space is Hausdorff.
+\end{proposition}
+This suggests us to study sequences in metric spaces since limits of sequences in Hausdorff spaces are unique. 
+\begin{definition}[limit of sequence]
+	Let $\{x_n\}$ be a sequence in $X$ and $x\in X$. If
+	\[
+		\lim_{n\to\infty}d(x_n,x)=0,
+	\]
+	then $x$ is called the \emph{limit} of $\{x_n\}$, denoted as $\lim_{x\to\infty}x_n=x$ or $x_n\to x\;(n\to\infty)$.
+\end{definition}
+
+\begin{proposition}[properties of convergent sequences]
+	Let $\{x_n\}$ be a convergent sequence in $X$.
+	\begin{enumerate}
+		\item the limit of $\{x_n\}$ is unique,
+		\item $\{x_n\}$ is bounded,
+		\item if $x_n\to x$, then any subsequence of $\{x_n\}$ also converges to $x$.
+	\end{enumerate}	
+\end{proposition}
+
+\begin{proposition}[continuity of metric]
+	Given a metric space $(X,d)$, the metric $d:X\times X\to \mathbb{R}$ is continuous, that is,
+	\[
+		x_n\to x,\; y_n\to y\implies d(x_n,y_n)\to d(x,y).
+	\]
+\end{proposition}
+\subsection{Completeness}
+\begin{definition}[Cauchy sequences]
+	Let $\{x_n\}$ be a sequence in metric space $X$. $\{x_n\}$ is called a \emph{Cauchy sequence} if for all $\epsilon>0$, there exsits $N>0$ such that for all $m,n>N$, $d(x_m,x_n)<\epsilon$.
+\end{definition}
+
+\begin{proposition}[properties of Cauchy sequences]
+	Cauchy sequences in metric spaces satisfie the following properties:
+	\begin{enumerate}
+		\item a convergent sequence is a Cauchy sequence,
+		\item Cauchy sequences are bounded,
+		\item If $\{x_n\}$ is a Cauchy sequence and a subsequence of $\{x_n\}$ converges to $x$, then $\{x_n\}$ also converges to $x$.
+	\end{enumerate}	
+\end{proposition}
+
+\begin{definition}[complete metric space]
+	A metric space is \emph{complete} if and only if all Cauchy sequences are convergent.
+\end{definition}
+
+\section{Normed Spaces}
+\subsection{Basic notions}
+\begin{definition}[normed space]
+	Given a vector space $X$ over $k=\mathbb{R}\text{ or }\mathbb{C}$ and a mapping $\Vert\cdot\Vert : X\to\mathbb{R}$, we say
+	$\left(X, \Vert\cdot\Vert\right)$ is a \emph{normed vector space} or \emph{normed space} if $\Vert\cdot\Vert$ satisfies the following conditions:
+	\begin{enumerate}
+		\item positive definiteness: $\forall x\in X,\;\Vert x\Vert\ge 0$ and $\Vert x\Vert=0\iff x=0$,
+		\item absolute homogeneity: $\forall x\in X,\;\forall\lambda\in k,\;\Vert \lambda x\Vert=|\lambda| \Vert  x\Vert$,
+		\item triangle inequality: $\forall x, y\in X,\;\Vert x+ y\Vert\le\Vert x\Vert+\Vert y\Vert$.
+	\end{enumerate}	
+\end{definition}
+
+\begin{definition}[Banach space]
+	A normed space is called a \emph{Banach space} if it is complete.
+\end{definition}
+
+\begin{proposition}
+	Let $(X,\|\cdot\|)$ be a normed space.
+	\begin{enumerate}
+		\item $\|\cdot\|:X\to\mathbb{R}$ is continuous, namely
+		\[\lim_{n\to\infty}x_n=x\implies\lim_{n\to\infty}\|x_n\|=\|x\|,\]
+		\item the addition and multiplication on $X$ is continuous, namely
+		\[
+			\lim_{n\to\infty}x_n=x,\lim_{n\to\infty}y_n=y,\lim_{n\to\infty}\lambda_n=\lambda\implies\lim_{n\to\infty}x_n+\lambda_ny_n=x+\lambda y.
+		\]
+	\end{enumerate}	
+\end{proposition}
+
+\subsection{$L^p$ spaces}
+In general, $L^p\,(1\le p\le\infty)$ spaces are Banach spaces defined on some measure space $(\Omega, \mathcal{F}, \mu)$. For functional analysis, we mainly focus on two types of $L^p$ spaces. 
+\subsubsection{$L^p(E)$ spaces}
+The first type is defined on some sub measure space $E$ of the Lebesgue measure space $(\mathbb{R}^n, \mathcal{M}, \mu_{\mathcal{M}})$, written as $L^p(E)$ spaces. In this case, the underlying set of $L^p(E)$ consists all measurable functions $f$ such that $\Vert f\Vert_p <\infty$ where $\Vert \cdot\Vert_p:\{f:f\text{ is measurable function on }E\}\to[0,\infty]$ is defined as
+\[
+	\Vert f\Vert_p:=
+	\begin{cases}
+		\left(\bigintsss_E |f|^pdx\right)^{\frac{1}{p}},&1\le p< \infty,\\[10pt]
+		\inf \left\{M: |f|\le M\text{ a.e.}\right\},&p=\infty.
+	\end{cases}	
+\]
+The norm of $L^p(E)$ is just the restriction of $\Vert \cdot\Vert_p$ to the underlying set of $L^p(E)$. Strictly speaking, measurable functions in $L^p(E)$ should quotient out the equivalent relation $\xlongequal{a.e.}$.
+\subsubsection{$\ell^p$ spaces}
+The second type is defined on $(\mathbb{N},2^\mathbb{N},\mu_c)$ where $2^\mathbb{N}$ is the power set of $\mathbb{N}$ and $\mu_c$ is the counting measure
+\[
+\mu_c(A)= 
+\begin{cases}
+	|A|, & \text { if } A \text { is finite}, \\
+	+\infty, & \text { if } A \text { is infinite}.
+\end{cases}
+\]
+$L^p(\mathbb{N},\mathcal{P}(\mathbb{N}),\mu_c)$ are often written as $\ell^p$. In this case, the underlying set of $\ell^p$ consists all real number sequences $x=(x_1,x_2,\cdots)$ such that $\Vert x\Vert_p <\infty$ where $\Vert \cdot\Vert_p:\mathbb{R}^\mathbb{N}\to[0,\infty]$ is defined as
+\[
+	\Vert x\Vert_p:=
+	\begin{cases}
+		\left(\,\sum\limits_{i=1}^\infty |x_i|^pdx\right)^{\frac{1}{p}},&1\le p< \infty,\\[10pt]
+		\;\sup\limits_{i\ge 1}|x_i|,&p=\infty.
+	\end{cases}	
+\]
+
+\chapter*{Appendix}
+
+\end{document}
