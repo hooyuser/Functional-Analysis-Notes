@@ -2,6 +2,8 @@ name: Generate Release PDF
 on: [push]
 env:
   TEX_FILE_NAME: Functional_Analysis
+permissions:
+  contents: write
 jobs:
   build_latex:
     runs-on: ubuntu-latest
