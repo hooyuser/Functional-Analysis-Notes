@@ -11,6 +11,7 @@
 \usepackage{bigints}
 \usepackage{enumitem}
 \usepackage{extarrows}
+\usepackage{tikz-cd}
 
 \theorembodyfont{\upshape}
 \newtheorem{definition}{Definition}[section]
@@ -40,9 +41,9 @@
 \begin{definition}[metric space]
 	Given a nonempty set $X$ and a mapping $d:X\times X\to \mathbb{R}$, we say $(X,d)$ is a \emph{metric space} if $d$ satisfies the following conditions for all $x,y\in X$:
 	\begin{enumerate}
-		\item identity of indiscernibles: $d(x,y)=0\iff x=y$,
-		\item symmetry: $d(x,y)=d(y,x)$,
-		\item triangle inequality: $d(x,y)\le d(x,z)+d(y,z)$.
+		\item (identity of indiscernibles): $d(x,y)=0\iff x=y$,
+		\item (symmetry): $d(x,y)=d(y,x)$,
+		\item (triangle inequality): $d(x,y)\le d(x,z)+d(y,z)$.
 	\end{enumerate}	
 \end{definition}
 
@@ -103,6 +104,48 @@ This suggests us to study sequences in metric spaces since limits of sequences i
 
 \begin{definition}[complete metric space]
 	A metric space is \emph{complete} if and only if all Cauchy sequences are convergent.
+\end{definition}
+
+\begin{definition}[pseudometric space]
+	A \emph{pseudometric space} $(X, d)$ is a set $X$ together with a non-negative real-valued function $d: X \times X \longrightarrow \mathbb{R}_{\geq 0}$, called a pseudometric, such that for every $x, y, z \in X$,
+	\begin{enumerate}
+		\item $d(x, x)=0$.
+		\item (symmetry): $d(x, y)=d(y, x)$
+		\item (triangle inequality): $d(x, z) \leq d(x, y)+d(y, z)$
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[metric space induced by a pseudometric]
+	Let $(X,d)$ be a pseudometric space. Define an equivalence relation $\sim$ on $X$ as follows: for any $x,y\in X$, $x\sim y$ if and only if $d(x,y)=0$. Denote by $\hat{X}$ the quotient set $X/\sim$. Define a metric $\hat{d}$ on $\hat{X}$ as follows: for any $x,y\in X$, define
+	\[
+		\hat{d}([x],[y]):=d(x,y).
+	\]
+	Then $(\hat{X},\hat{d})$ is a metric space.
+\end{definition}
+
+\begin{definition}[completition of metric space]
+	Given a metric space $(X,d)$, the \emph{completition} of $(X,d)$ can be characterized by the following universal property: let $I: \mathsf{ComMet}\to\mathsf{Met}$ be the inclusion functor from the category of complete metric spaces to the category of metric spaces, then the \emph{completition of $(X,d)$} is the initial object of the comma category $\left(\Delta X\downarrow I\right)$, denoted as $\iota:(X,d)\to\left(\hat{X},\hat{d}\right)$. That is, for any $Y\in\mathrm{Ob}(\mathsf{ComMet})$ and any morphism $f:X\to I(Y)$, there exsits a unique morphism $\hat{f}:\hat{X}\to Y$ such that the following diagram commutes:
+	\[
+		\begin{tikzcd}
+			I\left(\hat{X}\right) \arrow[rr, "I\left(\hat{f}\right)", dashed] &                                        & I(Y) \\
+																			  & X \arrow[lu, "\iota"] \arrow[ru, "f"'] &     
+	\end{tikzcd}
+	\]
+	The existence of the completition of $(X,d)$ can be proved by explicit construction. Denote by $\mathrm{CauSeq}[X]$ the set of all Cauchy sequences in $X$. Define a map
+	\begin{align*}
+		\hat{d}:\mathrm{CauSeq}[X]\times\mathrm{CauSeq}[X]&\to\mathbb{R}_{\ge 0}\\
+		\left(\{x_n\},\{y_n\}\right)&\mapsto\lim_{n\to\infty}d(x_n,y_n).
+	\end{align*}
+	We can check that $\hat{d}$ is a pseudometric on $\mathrm{CauSeq}[X]$:
+	\begin{enumerate}
+		\item $\hat{d}(\{x_n\},\{x_n\})=\lim_{n\to\infty}d(x_n,x_n)=0$,
+		\item $\hat{d}(\{x_n\},\{y_n\})=\lim_{n\to\infty}d(x_n,y_n)=\lim_{n\to\infty}d(y_n,x_n)=\hat{d}(\{y_n\},\{x_n\})$,
+		\item $\hat{d}(\{x_n\},\{z_n\})=\lim_{n\to\infty}d(x_n,z_n)\le\lim_{n\to\infty}d(x_n,y_n)+\lim_{n\to\infty}d(y_n,z_n)=\hat{d}(\{x_n\},\{y_n\})+\hat{d}(\{y_n\},\{z_n\})$.
+	\end{enumerate}
+	
+	
+	Define an equivalence relation
+	$\sim$ on $\mathrm{CauSeq}[X]$ as follows: for any $\{x_n\},\{y_n\}\in\mathrm{CauSeq}[X]$, $\{x_n\}\sim\{y_n\}$ if and only if $\lim_{n\to\infty}d(x_n,y_n)=0$. Denote by $\hat{X}$ the quotient set $\mathrm{CauSeq}[X]/\sim$. Define a metric $\hat{d}$ on $\hat{X}$ as follows: for any $\{x_n\},\{y_n\}\in\mathrm{CauSeq}[X]$, define
 \end{definition}
 
 \section{Normed Spaces}
