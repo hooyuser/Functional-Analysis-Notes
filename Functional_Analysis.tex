@@ -179,10 +179,10 @@ This suggests us to study sequences in metric spaces since limits of sequences i
 	We see $\{y_n\}$ is a Cauchy sequence in $S$ and converges to some $y\in X$. Since $d(x_n,y_n)\to 0$, we have $x_n\to y$.
 \end{proof}
 
-\begin{definition}[completition of metric space]
-	We will give both the universal property and explicit construction of the completition of a metric space.\\
+\begin{definition}[completion of metric space]
+	We will give both the universal property and explicit construction of the completion of a metric space.\\
 	\textbf{$\bullet$ Universal property}\\
-	Given a metric space $(X,d)$, the \emph{completition} of $(X,d)$ can be characterized by the following universal property: let $I: \mathsf{ComMet}\to\mathsf{Met}$ be the inclusion functor from the category of complete metric spaces to the category of metric spaces, then the \emph{completition of $(X,d)$} is the initial object of the comma category $\left(\Delta X\downarrow I\right)$, denoted as $\iota:(X,d)\to\left(\hat{X},\hat{d}\right)$. That is, for any $Y\in\mathrm{Ob}(\mathsf{ComMet})$ and any morphism $f:X\to I(Y)$, there exsits a unique morphism $\hat{f}:\hat{X}\to Y$ such that the following diagram commutes:
+	Given a metric space $(X,d)$, the \emph{completion} of $(X,d)$ can be characterized by the following universal property: let $I: \mathsf{ComMet}\to\mathsf{Met}$ be the inclusion functor from the category of complete metric spaces to the category of metric spaces, then the \emph{completion of $(X,d)$} is the initial object of the comma category $\left(\Delta X\downarrow I\right)$, denoted as $\iota:(X,d)\to\left(\hat{X},\hat{d}\right)$. That is, for any $Y\in\mathrm{Ob}(\mathsf{ComMet})$ and any morphism $f:X\to I(Y)$, there exsits a unique morphism $\hat{f}:\hat{X}\to Y$ such that the following diagram commutes:
 	\[
 		\begin{tikzcd}
 			I\left(\hat{X}\right) \arrow[rr, "I\left(\hat{f}\right)", dashed] &                                        & I(Y) \\
@@ -190,7 +190,7 @@ This suggests us to study sequences in metric spaces since limits of sequences i
 	\end{tikzcd}
 	\]
 	\textbf{$\bullet$ Explicit construction}\\
-	The existence of the completition of $(X,d)$ can be proved by explicit construction. Denote by $\mathrm{CauSeq}[X]$ the set of all Cauchy sequences in $X$. Define a map
+	The existence of the completion of $(X,d)$ can be proved by explicit construction. Denote by $\mathrm{CauSeq}[X]$ the set of all Cauchy sequences in $X$. Define a map
 	\begin{align*}
 		d_c:\mathrm{CauSeq}[X]\times\mathrm{CauSeq}[X]&\longrightarrow\mathbb{R}_{\ge 0}\\
 		\left(\{x_n\},\{y_n\}\right)&\longmapsto\lim_{n\to\infty}d(x_n,y_n).
@@ -220,7 +220,7 @@ This suggests us to study sequences in metric spaces since limits of sequences i
 		\hat{d}\left(\iota\left(x\right),\iota\left(y\right)\right)=\lim_{k\to\infty}d(x,y)=d(x,y),\quad\forall x,y\in X.
 	\]
 	\textbf{$\bullet$ Verification of the universal property}\\
-	We can verify that $\iota:(X,d)\to\left(\hat{X},\hat{d}\right)$ is the completition of $(X,d)$. 
+	We can verify that $\iota:(X,d)\to\left(\hat{X},\hat{d}\right)$ is the completion of $(X,d)$. 
 	\begin{enumerate}[label=(\roman*)]
 		\item We can utilize lemma to show $\hat{X}$ is complete. Suppose $\left[\left\{x_n\right\}\right]\in \hat{X}$. Since $\left\{x_n\right\}$ is a Cauchy sequence, there exists a $N>0$ such that for all $n,m>N$, $d(x_m,x_n)<\epsilon$. So whenever $m>N$, we have
 	\[
@@ -245,11 +245,19 @@ This suggests us to study sequences in metric spaces since limits of sequences i
 		\hat{f}:\hat{X}&\longrightarrow Y\\
 		[\left\{x_n\right\}]&\longmapsto\lim_{n\to\infty}f(x_n)
 	\end{align*}
-	We can check that $\hat{f}$ is well-defined. Suppose $\left\{x_n\right\}\sim\left\{y_n\right\}$, then $\lim_{n\to\infty}d(x_n,y_n)=0$. Since $f$ is a short map, we have
-	\[
-		d_Y\left(\lim_{n\to\infty}f(x_n),\lim_{n\to\infty}f(y_n)\right)=\lim_{n\to\infty}d_Y(f(x_n),f(y_n))\le \lim_{n\to\infty}d(x_n,y_n)=0,
-	\]
-	which implies $\hat{f}\left([\left\{x_n\right\}]\right)=\hat{f}\left([\left\{y_n\right\}]\right)$.
+	We can check that $\hat{f}$ is well-defined. Suppose $[\left\{x_n\right\}]=[\left\{y_n\right\}]$, then $\lim_{n\to\infty}d(x_n,y_n)=0$. Since $f$ is a short map, we have
+	\begin{align*}
+		d_Y\left(\hat{f}\left([\left\{x_n\right\}]\right),\hat{f}\left([\left\{y_n\right\}]\right)\right)&=d_Y\left(\lim_{n\to\infty}f(x_n),\lim_{n\to\infty}f(y_n)\right)\\
+		&=\lim_{n\to\infty}d_Y(f(x_n),f(y_n))\\
+		&\le \lim_{n\to\infty}d(x_n,y_n)=0,
+	\end{align*}
+	which implies $\hat{f}\left([\left\{x_n\right\}]\right)=\hat{f}\left([\left\{y_n\right\}]\right)$. It is straightforward to check that $\hat{f}$ is a short map. The commutative diagram holds because
+	\begin{align*}
+		\hat{f}\circ\iota(x)&=\hat{f}\left([\left\{x,x,x,\cdots\right\}]\right)\\
+		&=\lim_{n\to\infty}f(x)\\
+		&=f(x).
+	\end{align*}
+	Suppose there exists another short map $g:\hat{X}\to Y$ such that $g\circ\iota=f$. Then $g$ and $\hat{f}$ coincide on $\iota(X)$, which is dense in $\hat{X}$. Since $g$ and $\hat{f}$ are continuous, they must coincide on $\hat{X}$. So $\hat{f}$ is unique.
 	\end{enumerate}
 \end{definition}
 
